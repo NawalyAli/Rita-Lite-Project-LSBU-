@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 const HomeScreen = ({ navigation }) => {
   return (
     <LinearGradient
-      colors={['#6AC3FF', '#9457EB']} // need to change this to Rita color
+      colors={['#38B5FE', '#9641FF']} // need to change this to Rita color
       style={styles.container}
     >
       <Text style={styles.text}>Welcome to Rita!</Text>

@@ -8,7 +8,7 @@ const ProfileScreen = () => {
 
   return (
     <LinearGradient
-      colors={['#6AC3FF', '#9457EB']}
+      colors={['#38B5FE', '#9641FF']}
       style={styles.container}
     >
       {/* Profile Icon */}
