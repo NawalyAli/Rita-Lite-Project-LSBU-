@@ -2,12 +2,10 @@
 
 This is a project for our LSBU course: ICT Project Management in Practice [CSI_6_ICT] 2024-2025.
 
-Rita Lite will be a phone app which aims to assist patients and carers with medication adherence.
+Rita Lite will be a phone app that aims to assist patients and carers with medication adherence.
 
 
 Things you need to download:
-
-- Git Bash: https://git-scm.com/downloads
 
 - Node.js: https://nodejs.org/en/download/package-manager
 
