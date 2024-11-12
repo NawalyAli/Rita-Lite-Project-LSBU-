@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Header from '../(tabs)/header';
-import AddressScreen from './AddressScreen';
 
 export default function AboutYouScreen({ navigation }) {
   const [firstName, setFirstName] = useState('');
@@ -104,7 +103,7 @@ const styles = StyleSheet.create({
   progressBar: {
     height: 6,
     width: '40%',
-    backgroundColor: '#4F5D75',
+    backgroundColor: '#0F4D80',
     borderRadius: 3,
   },
   progressText: {
@@ -143,7 +142,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#1E3A8A',
+    backgroundColor: '#0F4D80',
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',

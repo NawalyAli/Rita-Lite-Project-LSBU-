@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Switch } from 'react-native';
 import Header from '../(tabs)/header';
-import AboutYouScreen from './AboutYouScreen';
 
 export default function ProfileCreationScreen({ navigation, setUserCredentials }) {
   const [email, setEmail] = useState('');
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
   progressBar: {
     height: 6,
     width: '20%',
-    backgroundColor: '#4F5D75',
+    backgroundColor: '#0F4D80',
     borderRadius: 3,
   },
   progressText: {
@@ -179,7 +178,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   checkboxChecked: {
-    backgroundColor: '#4F5D75',
+    backgroundColor: 'green',
   },
   termsText: {
     fontSize: 14,
@@ -191,7 +190,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   button: {
-    backgroundColor: '#1E3A8A',
+    backgroundColor: '#0F4D80',
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',

@@ -13,7 +13,7 @@ export default function LoginScreen({ navigation, userCredentials }) {
       password === userCredentials.password
     ) {
       alert('Login Successful');
-      // Navigate to the main screen or dashboard here, e.g., navigation.replace('MainScreen');
+      // Navigate to dashboard here navigation.replace('dashboardScreen');
     } else {
       alert('Invalid username or password');
     }
@@ -82,6 +82,8 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
+    marginTop: 30,
+    marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   loginButton: {
-    backgroundColor: '#1E3A8A',
+    backgroundColor: '#0F4D80',
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   linkText: {
-    color: '#1E3A8A',
+    color: '#0F4D80',
     fontSize: 16,
     marginTop: 15,
     textAlign: 'center',

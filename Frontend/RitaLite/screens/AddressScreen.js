@@ -9,7 +9,7 @@ export default function AddressScreen({ navigation }) {
   const handleContinue = () => {
     // Navigate to the next screen or perform validation
     // Replace 'NextScreen' with the actual screen name you want to navigate to
-    navigation.navigate('LoginScreen');
+    navigation.navigate('TermsScreen');
   };
 
   const handleEnterAddressManually = () => {
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   progressBar: {
     height: 6,
     width: '60%',
-    backgroundColor: '#4F5D75',
+    backgroundColor: '#0F4D80',
     borderRadius: 3,
   },
   progressText: {
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   continueButton: {
-    backgroundColor: '#1E3A8A',
+    backgroundColor: '#0F4D80',
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',
@@ -137,11 +137,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 10,
-    borderColor: '#1E3A8A',
+    borderColor: '#0F4D80',
     borderWidth: 1,
   },
   manualButtonText: {
-    color: '#1E3A8A',
+    color: '#0F4D80',
     fontSize: 18,
     fontWeight: 'bold',
   },
