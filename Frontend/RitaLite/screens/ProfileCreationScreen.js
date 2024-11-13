@@ -116,13 +116,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
-    textAlign: 'center',
     marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
     color: '#666',
-    textAlign: 'center',
     marginBottom: 20,
   },
   input: {
@@ -194,7 +192,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 8,
     alignItems: 'center',
-    marginBottom: 30,
+    marginTop: 30,
   },
   buttonText: {
     color: '#fff',

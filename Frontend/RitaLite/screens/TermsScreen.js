@@ -86,20 +86,18 @@ const styles = StyleSheet.create({
       fontSize: 24,
       fontWeight: 'bold',
       color: '#333',
-      textAlign: 'center',
       marginBottom: 10,
     },
     description: {
       fontSize: 16,
       color: '#666',
-      textAlign: 'center',
       marginBottom: 15,
     },
     termsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 10,
     },
     termsLabel: {
     fontSize: 16,
