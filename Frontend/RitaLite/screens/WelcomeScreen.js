@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center'},
   logo: {width: 250, height: 250, marginBottom: 10}, 
   title: { fontSize: 24, color: 'white', marginBottom: 20 },
-  button: { backgroundColor: '#0F4D80', padding: 15, borderRadius: 40},
-  buttonText: { color: 'white', fontSize: 16 },
+  button: { backgroundColor: '#0F4D80', padding: 15, borderRadius: 40, marginTop: 60, alignItems: 'center', width: 250},
+  buttonText: { color: 'white', fontSize: 20, fontWeight: 'bold'},
   link: { marginTop: 10 },
   linkText: { color: 'white', fontSize: 14, textDecorationLine: 'underline' },
 });
