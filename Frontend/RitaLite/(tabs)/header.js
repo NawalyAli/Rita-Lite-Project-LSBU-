@@ -31,8 +31,6 @@ const styles = StyleSheet.create({
     paddingVertical: 1,
     paddingHorizontal: 20,
     backgroundColor: '#F2F2F2',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
   },
   logo: {
     width: 100,

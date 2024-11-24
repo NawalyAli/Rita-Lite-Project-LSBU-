@@ -11,6 +11,8 @@ import ProfileCreationScreen from './screens/ProfileCreationScreen';
 import AboutYouScreen from './screens/AboutYouScreen';
 import AddressScreen from './screens/AddressScreen';
 import TermsScreen from './screens/TermsScreen';
+import DashboardScreen from './screens/DashboardScreen';
+import ReminderScreen from './screens/ReminderScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +39,8 @@ export default function App() {
         <Stack.Screen name="AboutYouScreen" component={AboutYouScreen} />
         <Stack.Screen name="AddressScreen" component={AddressScreen} />
         <Stack.Screen name="TermsScreen" component={TermsScreen} />
+        <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
+        <Stack.Screen name="ReminderScreen" component={ReminderScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreenWrapper} />
       </Stack.Navigator>
     </NavigationContainer>

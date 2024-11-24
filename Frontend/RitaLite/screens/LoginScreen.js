@@ -7,16 +7,19 @@ export default function LoginScreen({ navigation, userCredentials }) {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    if (
-      userCredentials &&
-      username === userCredentials.username &&
-      password === userCredentials.password
-    ) {
-      alert('Login Successful');
-      // Navigate to dashboard here navigation.replace('dashboardScreen');
-    } else {
-      alert('Invalid username or password');
-    }
+
+    navigation.replace('DashboardScreen', { firstName: username || 'Tester' });
+
+    // if (
+    //   userCredentials &&
+    //   username === userCredentials.username &&
+    //   password === userCredentials.password
+    // ) {
+    //   alert('Login Successful');
+    //   navigation.replace('DashboardScreen');
+    // } else {
+    //   alert('Invalid username or password');
+    // }
   };
 
   return (

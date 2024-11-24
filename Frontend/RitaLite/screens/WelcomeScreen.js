@@ -15,7 +15,7 @@ function WelcomeScreen({ navigation }) {
         style={styles.logo}
         resizeMode="contain"
       />
-      <Text style={styles.title}>Welcome to Rita Lite</Text>
+      <Text style={styles.title}>Your digital healthcare assistant</Text>
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('IntroScreen')}
@@ -36,11 +36,11 @@ function WelcomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center'},
   logo: {width: 250, height: 250, marginBottom: 10}, 
-  title: { fontSize: 24, color: 'white', marginBottom: 20 },
-  button: { backgroundColor: '#0F4D80', padding: 15, borderRadius: 40, marginTop: 60, alignItems: 'center', width: 250},
-  buttonText: { color: 'white', fontSize: 20, fontWeight: 'bold'},
+  title: { fontSize: 34, color: 'white', marginBottom: 20, fontWeight: 'bold', marginTop: 20, textAlign: 'center'},
+  button: { backgroundColor: '#0F4D80', padding: 20, borderRadius: 40, marginTop: 50, alignItems: 'center', width: 350},
+  buttonText: { color: 'white', fontSize: 24, fontWeight: 'bold'},
   link: { marginTop: 10 },
-  linkText: { color: 'white', fontSize: 14, textDecorationLine: 'underline' },
+  linkText: { color: 'white', fontSize: 20, textDecorationLine: 'underline' },
 });
 
 export default WelcomeScreen;

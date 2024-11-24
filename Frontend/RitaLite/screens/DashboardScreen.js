@@ -1,104 +1,220 @@
 // DashboardScreen.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { TouchableOpacity, FlatList, TextInput, View, Text, StyleSheet } from 'react-native';
+import Header from '../(tabs)/header';
+import TabButtons from '../(tabs)/TabButtons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-const scheduledMedications = [
-  {
-    id: '1',
-    name: 'Blood Pressure Medication',
-    time: '8:00 AM',
-    date: 'Sunday, 12 June',
-    doctor: 'Dr. Smith',
-  },
-  {
-    id: '2',
-    name: 'Diabetes Medication',
-    time: '12:00 PM',
-    date: 'Sunday, 12 June',
-    doctor: 'Dr. Bessie Coleman',
-  },
-  {
-    id: '3',
-    name: 'Pain Reliever',
-    time: '5:00 PM',
-    date: 'Sunday, 12 June',
-    doctor: 'Dr. Baba Didrikson',
-  },
-];
+const DashboardScreen = ({ route, navigation }) => {
+  const { firstName } = route.params || {}; // Get the first name from AboutYouScreen.js
 
-export default function DashboardScreen({ navigation }) {
-  const renderMedicationItem = ({ item }) => (
-    <TouchableOpacity style={styles.medicationItem} onPress={() => navigation.navigate('MedicationDetails', { medicationId: item.id })}>
-      <Text style={styles.medicationName}>{item.name}</Text>
-      <Text style={styles.medicationTime}>{item.time}</Text>
-      <Text style={styles.medicationDate}>{item.date}</Text>
-      <Text style={styles.doctorName}>{item.doctor}</Text>
-    </TouchableOpacity>
-  );
+  // Dummy data for upcoming medications
+  const upcomingMeds = [
+    { id: '1', name: 'Paracetamol BP 500mg', time: 'Today | 09:00-09:30 | 2024-11-21' },
+    { id: '2', name: 'Lofexidine BP 60mg', time: 'Today | 08:00-08:30 | 2024-11-21' },
+    { id: '3', name: 'Lofexidine BP 60mg', time: 'Today | 10:00-10:30 | 2024-11-21' },
+  ];
+
+  const missedDoses = [
+    { id: '1', name: 'Paracetamol BP 500mg', time: 'Thursday | 2024-11-15 | Morning' },
+    { id: '2', name: 'Paracetamol BP 500mg', time: 'Monday | 2024-11-18 | Afternoon' },
+    { id: '3', name: 'Paracetamol BP 500mg', time: 'Friday | 2024-11-19 | Night' },
+  ];
 
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}>Hello, James</Text>
-      <Text style={styles.header}>Upcoming Medications</Text>
+      <Header title="Dashboard" />
+      <Text style={styles.welcomeText}>Welcome back, {firstName}</Text>
+      <TextInput style={styles.searchBar} placeholder="Find your medication" />
+      
+      <View style={styles.section}>
+      <View style={styles.sectionLeft}>
+      <View style={styles.iconBackground}>
+          <Ionicons name="medical" size={24} color='white' style={styles.icon} />
+          </View>
+        <Text style={styles.sectionTitle}>Upcoming medication</Text>
+        </View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('ReminderScreen', { upcomingMeds, missedDoses })
+          }
+        >
+          <Text style={styles.seeAll}>See all</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.Medssection}>
 
       <FlatList
-        data={scheduledMedications}
-        renderItem={renderMedicationItem}
+        data={upcomingMeds}
         keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.medicationItem}>
+            <Text style={styles.medicationName}>{item.name}</Text>
+            <Text style={styles.medicationTime}>{item.time}</Text>
+          </View>
+        )}
       />
+      </View>
 
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => navigation.navigate('AddMedication')}
-      >
-        <Ionicons name="add-circle" size={70} color="#4CAF50" />
-      </TouchableOpacity>
+      <View style={styles.alertSection}>
+      <View style={styles.sectionAlertIcon}>
+      <Ionicons name="alert-circle" size={24} color="#721c24" style={styles.alertIcon} />
+        <Text style={styles.alertTitle}>Your recent missed doses</Text>
+        </View>
+        {missedDoses.map((dose) => (
+          <View key={dose.id} style={styles.missedDoseItem}>
+            <Text style={styles.missedDoseName}>{dose.name}</Text>
+            <Text style={styles.missedDoseTime}>{dose.time}</Text>
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.caregiverSection}>
+        <Text style={styles.caregiverLabel}>Caregiver's email</Text>
+        <Text style={styles.caregiverEmail}>caregiversemail@gmail.com</Text>
+      </View>
+      {/* Fixed Tab Buttons */}
+      
+      <View style={styles.footer}>
+        <TabButtons />
+        </View> 
     </View>
   );
-}
+};
+
+export default DashboardScreen;
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f7f7f7',
     padding: 20,
-    backgroundColor: '#fff',
   },
-  greeting: {
+  welcomeText: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    marginTop: 10,
   },
-  header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginVertical: 15,
-  },
-  medicationItem: {
-    padding: 15,
+  searchBar: {
+    backgroundColor: '#e6e6e6',
     borderRadius: 10,
-    backgroundColor: '#E0F7FA',
+    padding: 10,
+    marginBottom: 20,
+  },
+  section: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 10,
   },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
+  seeAll: {
+    color: '#007bff',
+  },
+  medicationItem: {
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+  },
   medicationName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   medicationTime: {
+    fontSize: 14,
+    color: '#666',
+  },
+  alertSection: {
+    backgroundColor: '#f8d7da',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  alertTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#721c24',
+    marginBottom: 10,
+  },
+  missedDoseItem: {
+    marginBottom: 10,
+  },
+  missedDoseName: {
     fontSize: 16,
-    color: '#333',
+    fontWeight: 'bold',
   },
-  medicationDate: {
+  missedDoseTime: {
     fontSize: 14,
-    color: '#888',
+    color: '#666',
   },
-  doctorName: {
+  caregiverSection: {
+    marginTop: 5,
+    paddingHorizontal: 10,
+    marginBottom: 20,
+  },
+  caregiverLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  caregiverEmail: {
     fontSize: 14,
-    color: '#555',
+    fontWeight: 'bold',
+    color: '#007bff',
+    backgroundColor: '#BBBFBF',
+    padding: 12,
+    borderRadius: 10,
+    marginBottom: 10,
   },
-  addButton: {
+  placeholder: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sectionLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+
+  },
+  sectionAlertIcon: {
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+
+  alertIcon: {
+    borderRadius: 20,
+  },
+  
+  Medssection: {
+    backgroundColor: '#BBBFBF',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+    paddingBottom: 10,
+  },
+  iconBackground: {
+    backgroundColor: '#0F4D80',
+    padding: 5,
+    borderRadius: 20,
+  },
+  footer: {
     position: 'absolute',
-    bottom: 30,
-    right: 20,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 15,
+    backgroundColor: '#0F4D80',
   },
 });
