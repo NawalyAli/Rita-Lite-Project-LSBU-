@@ -9,9 +9,9 @@ const TabButtons = () => {
   const tabs = [
     { name: 'DashboardScreen', icon: 'home', },
     { name: 'ReminderScreen', icon: 'calendar' },
-    { name: '', icon: 'chatbubbles' },
-    { name: '', icon: 'medkit' },
-    { name: '', icon: 'person' },
+    { name: 'AssistantScreen', icon: 'chatbubbles' },
+    { name: 'MedicationManagementScreen', icon: 'medkit' },
+    { name: 'ProfileSettingsScreen', icon: 'person' },
   ];
 
   return (
