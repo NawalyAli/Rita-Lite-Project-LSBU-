@@ -13,6 +13,11 @@ import AddressScreen from './screens/AddressScreen';
 import TermsScreen from './screens/TermsScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import ReminderScreen from './screens/ReminderScreen';
+import MedicationManagementScreen from './screens/MedicationManagementScreen';
+import AddMedicationOptionsScreen from './screens/AddMedicationOptionsScreen';
+import NewMedicationScreen from './screens/NewMedicationScreen';
+import AssistantScreen from './screens/AssistantScreen';
+import ProfileSettingsScreen from './screens/ProfileSettingsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +46,11 @@ export default function App() {
         <Stack.Screen name="TermsScreen" component={TermsScreen} />
         <Stack.Screen name="DashboardScreen" component={DashboardScreen} />
         <Stack.Screen name="ReminderScreen" component={ReminderScreen} />
+        <Stack.Screen name="MedicationManagementScreen" component={MedicationManagementScreen} />
+        <Stack.Screen name="AddMedicationOptionsScreen" component={AddMedicationOptionsScreen} />
+        <Stack.Screen name="NewMedicationScreen" component={NewMedicationScreen} />
+        <Stack.Screen name="AssistantScreen" component={AssistantScreen} />
+        <Stack.Screen name="ProfileSettingsScreen" component={ProfileSettingsScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreenWrapper} />
       </Stack.Navigator>
     </NavigationContainer>
