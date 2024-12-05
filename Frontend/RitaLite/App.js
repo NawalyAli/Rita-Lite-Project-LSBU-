@@ -1,7 +1,8 @@
-// App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as Notifications from 'expo-notifications';
 
 import SplashScreen from './screens/SplashScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -18,6 +19,7 @@ import AddMedicationOptionsScreen from './screens/AddMedicationOptionsScreen';
 import NewMedicationScreen from './screens/NewMedicationScreen';
 import AssistantScreen from './screens/AssistantScreen';
 import ProfileSettingsScreen from './screens/ProfileSettingsScreen';
+import ScanQRCodeScreen from './screens/ScanQRCodeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +36,28 @@ export default function App() {
     <LoginScreen {...props} userCredentials={userCredentials} />
   );
 
+  // **Add this useEffect to configure notifications**
+  useEffect(() => {
+    // Request notification permissions
+    const requestPermissions = async () => {
+      const { status } = await Notifications.getPermissionsAsync();
+      if (status !== 'granted') {
+        await Notifications.requestPermissionsAsync();
+      }
+    };
+
+    // Configure how notifications are displayed (optional customization)
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+      }),
+    });
+
+    requestPermissions();
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -49,6 +73,7 @@ export default function App() {
         <Stack.Screen name="MedicationManagementScreen" component={MedicationManagementScreen} />
         <Stack.Screen name="AddMedicationOptionsScreen" component={AddMedicationOptionsScreen} />
         <Stack.Screen name="NewMedicationScreen" component={NewMedicationScreen} />
+        <Stack.Screen name="ScanQRCodeScreen" component={ScanQRCodeScreen} />
         <Stack.Screen name="AssistantScreen" component={AssistantScreen} />
         <Stack.Screen name="ProfileSettingsScreen" component={ProfileSettingsScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreenWrapper} />
@@ -56,3 +81,4 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
