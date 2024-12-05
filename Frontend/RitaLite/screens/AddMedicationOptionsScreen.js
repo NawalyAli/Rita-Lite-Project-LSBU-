@@ -16,7 +16,10 @@ const AddMedicationOptionsScreen = ({ navigation }) => {
       </Text>
 
       {/* Scan QR Code Button */}
-      <TouchableOpacity style={styles.option} onPress={() => {}}>
+      <TouchableOpacity
+        style={styles.option}
+        onPress={() => navigation.navigate('ScanQRCodeScreen')} // Navigate to the QR scanner screen
+      >
         <Ionicons name="qr-code-outline" size={24} color="#000" />
         <View style={styles.optionTextContainer}>
           <Text style={styles.optionTitle}>Scan QR Code</Text>

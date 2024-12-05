@@ -4,12 +4,28 @@ import { Calendar } from 'react-native-calendars';
 import Header from '../(tabs)/header';
 import TabButtons from '../(tabs)/TabButtons';
 
+// Dummy medication data
+const dummyUpcomingMeds = [
+  { id: '1', name: 'Aspirin', time: 'Morning | 8:00 AM | 2024-12-05' },
+  { id: '2', name: 'Metformin', time: 'Afternoon | 2:00 PM | 2024-12-05' },
+  { id: '3', name: 'Lisinopril', time: 'Evening | 8:00 PM | 2024-12-06' },
+];
+
+const dummyMissedDoses = [
+  { id: '4', name: 'Vitamin D', time: 'Morning | 8:00 AM | 2024-12-04' },
+  { id: '5', name: 'Insulin', time: 'Night | 10:00 PM | 2024-12-03' },
+];
+
 const ReminderScreen = ({ route }) => {
-  const { upcomingMeds = [], missedDoses = [] } = route.params || {}; // Safely access route parameters
+  const {
+    upcomingMeds = dummyUpcomingMeds, // Use dummyUpcomingMeds if no data is passed
+    missedDoses = dummyMissedDoses,   // Use dummyMissedDoses if no data is passed
+  } = route.params || {};
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
+  // Group medications by date
   const groupMedsByDate = (medications) => {
     const grouped = {};
     medications.forEach((med) => {
@@ -24,50 +40,48 @@ const ReminderScreen = ({ route }) => {
 
   return (
     <View style={styles.container}>
-    <Header title="Reminder" />
+      <Header title="Reminder" />
       <Text style={styles.title}>Reminder</Text>
       <View style={styles.content}>
-      <Calendar
-        markedDates={{
-          ...Object.keys(medsByDate).reduce((acc, date) => {
-            acc[date] = { marked: true, dotColor: 'blue' };
-            return acc;
-          }, {}),
-          [selectedDate]: { selected: true, selectedColor: '#007bff' },
-        }}
-        onDayPress={(day) => {
-          setSelectedDate(day.dateString);
-          setBottomSheetVisible(true);
-        }}
-        theme={{
-          arrowColor: '#007bff',
-          todayTextColor: '#007bff',
-        }}
-      />
+        <Calendar
+          markedDates={{
+            ...Object.keys(medsByDate).reduce((acc, date) => {
+              acc[date] = { marked: true, dotColor: 'blue' };
+              return acc;
+            }, {}),
+            [selectedDate]: { selected: true, selectedColor: '#007bff' },
+          }}
+          onDayPress={(day) => {
+            setSelectedDate(day.dateString);
+            setBottomSheetVisible(true);
+          }}
+          theme={{
+            arrowColor: '#007bff',
+            todayTextColor: '#007bff',
+          }}
+        />
 
-      {bottomSheetVisible && selectedDate && (
-        <View style={styles.bottomSheet}>
-          <Text style={styles.sectionTitle}>
-            Medications on {selectedDate}
-          </Text>
-          <FlatList
-            data={medsByDate[selectedDate] || []}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View style={styles.medicationItem}>
-                <Text style={styles.medicationName}>{item.name}</Text>
-                <Text style={styles.medicationTime}>{item.time}</Text>
-              </View>
-            )}
-          />
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={() => setBottomSheetVisible(false)}
-          >
-            <Text style={styles.closeButtonText}>Close</Text>
-          </TouchableOpacity>
-        </View>
-      )}
+        {bottomSheetVisible && selectedDate && (
+          <View style={styles.bottomSheet}>
+            <Text style={styles.sectionTitle}>Medications on {selectedDate}</Text>
+            <FlatList
+              data={medsByDate[selectedDate] || []}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <View style={styles.medicationItem}>
+                  <Text style={styles.medicationName}>{item.name}</Text>
+                  <Text style={styles.medicationTime}>{item.time}</Text>
+                </View>
+              )}
+            />
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setBottomSheetVisible(false)}
+            >
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
 
       {/* Fixed Tab Buttons */}

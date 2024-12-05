@@ -1,19 +1,45 @@
 // DashboardScreen.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TouchableOpacity, FlatList, TextInput, View, Text, StyleSheet } from 'react-native';
 import Header from '../(tabs)/header';
 import TabButtons from '../(tabs)/TabButtons';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import * as Notifications from 'expo-notifications';
 
 const DashboardScreen = ({ route, navigation }) => {
   const { firstName } = route.params || {}; // Get the first name from AboutYouScreen.js
 
   // Dummy data for upcoming medications
   const upcomingMeds = [
-    { id: '1', name: 'Paracetamol BP 500mg', time: 'Today | 09:00-09:30 | 2024-11-21' },
-    { id: '2', name: 'Lofexidine BP 60mg', time: 'Today | 08:00-08:30 | 2024-11-21' },
-    { id: '3', name: 'Lofexidine BP 60mg', time: 'Today | 10:00-10:30 | 2024-11-21' },
+    { id: '1', name: 'Paracetamol BP 500mg', time: 'Today | 09:00-09:30 | 2024-11-21', seconds: 20 },
+    { id: '2', name: 'Lofexidine BP 60mg', time: 'Today | 08:00-08:30 | 2024-11-21', seconds: 30 },
+    { id: '3', name: 'Lofexidine BP 60mg', time: 'Today | 10:00-10:30 | 2024-11-21', seconds: 40 },
   ];
+
+  useEffect(() => {
+    const requestPermissions = async () => {
+      const { status } = await Notifications.getPermissionsAsync();
+      if (status !== 'granted') {
+        await Notifications.requestPermissionsAsync();
+      }
+    };
+
+    const scheduleNotifications = () => {
+      upcomingMeds.forEach(async (med) => {
+        await Notifications.scheduleNotificationAsync({
+          content: {
+            title: 'Medication Reminder',
+            body: `It's time to take your ${med.name}.`,
+            sound: true,
+          },
+          trigger: { seconds: med.seconds }, // Trigger the notification
+        });
+      });
+    };
+
+    requestPermissions();
+    scheduleNotifications();
+  }, [upcomingMeds]);
 
   const missedDoses = [
     { id: '1', name: 'Paracetamol BP 500mg', time: 'Thursday | 2024-11-15 | Morning' },
@@ -28,11 +54,11 @@ const DashboardScreen = ({ route, navigation }) => {
       <TextInput style={styles.searchBar} placeholder="Find your medication" />
       
       <View style={styles.section}>
-      <View style={styles.sectionLeft}>
-      <View style={styles.iconBackground}>
-          <Ionicons name="medical" size={24} color='white' style={styles.icon} />
+        <View style={styles.sectionLeft}>
+          <View style={styles.iconBackground}>
+            <Ionicons name="medical" size={24} color="white" style={styles.icon} />
           </View>
-        <Text style={styles.sectionTitle}>Upcoming medication</Text>
+          <Text style={styles.sectionTitle}>Upcoming medication</Text>
         </View>
         <TouchableOpacity
           onPress={() =>
@@ -44,23 +70,22 @@ const DashboardScreen = ({ route, navigation }) => {
       </View>
 
       <View style={styles.Medssection}>
-
-      <FlatList
-        data={upcomingMeds}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.medicationItem}>
-            <Text style={styles.medicationName}>{item.name}</Text>
-            <Text style={styles.medicationTime}>{item.time}</Text>
-          </View>
-        )}
-      />
+        <FlatList
+          data={upcomingMeds}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.medicationItem}>
+              <Text style={styles.medicationName}>{item.name}</Text>
+              <Text style={styles.medicationTime}>{item.time}</Text>
+            </View>
+          )}
+        />
       </View>
 
       <View style={styles.alertSection}>
-      <View style={styles.sectionAlertIcon}>
-      <Ionicons name="alert-circle" size={24} color="#721c24" style={styles.alertIcon} />
-        <Text style={styles.alertTitle}>Your recent missed doses</Text>
+        <View style={styles.sectionAlertIcon}>
+          <Ionicons name="alert-circle" size={24} color="#721c24" style={styles.alertIcon} />
+          <Text style={styles.alertTitle}>Your recent missed doses</Text>
         </View>
         {missedDoses.map((dose) => (
           <View key={dose.id} style={styles.missedDoseItem}>
@@ -75,10 +100,9 @@ const DashboardScreen = ({ route, navigation }) => {
         <Text style={styles.caregiverEmail}>caregiversemail@gmail.com</Text>
       </View>
       {/* Fixed Tab Buttons */}
-      
       <View style={styles.footer}>
         <TabButtons />
-        </View> 
+      </View>
     </View>
   );
 };
