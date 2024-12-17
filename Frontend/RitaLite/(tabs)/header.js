@@ -4,9 +4,16 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function Header({ navigation, title }) {
+  const handleGoBack = () => {
+    if (navigation && navigation.goBack) {
+      navigation.goBack();
+    } else {
+      console.warn('No navigation prop provided to Header component.');
+    }
+  };
   return (
     <View style={styles.headerContainer}>
-      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <TouchableOpacity onPress={handleGoBack}>
         <Ionicons name="arrow-back" size={24} color="#333" />
       </TouchableOpacity>
       
@@ -28,9 +35,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 1,
+    paddingVertical: 5,
     paddingHorizontal: 20,
-    backgroundColor: '#F2F2F2',
+    backgroundColor: '#f7f7f7',
   },
   logo: {
     width: 100,

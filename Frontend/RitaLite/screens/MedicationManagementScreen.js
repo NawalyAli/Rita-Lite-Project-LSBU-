@@ -8,12 +8,16 @@ const MedicationManagementScreen = ({ navigation }) => {
   const medications = [
     { id: '1', name: 'Paracetamol BP 500mg', dose: '1 tablet', time: '08:00 AM' },
     { id: '2', name: 'Ibuprofen 200mg', dose: '1 tablet', time: '12:00 PM' },
+    { id: '3', name: 'Insulin 200mg', dose: '1 tablet', time: '14:00 PM' },
+    { id: '4', name: 'Aspirin 500mg', dose: '1 tablet', time: '08:00 AM' },
+    { id: '5', name: 'Metformin 1000mg', dose: '1 tablet', time: '12:00 PM' },
   ];
 
   return (
     <View style={styles.container}>
     <Header title="Medication Management" />
       <Text style={styles.title}>Medication Management</Text>
+      <Text style={styles.subtitle}> Your Most Repeated Medications </Text>
 
       {/* List of Medications */}
       <FlatList
@@ -59,6 +63,12 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
     textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    marginTop: 30,
   },
   medicationItem: {
     backgroundColor: '#fff',

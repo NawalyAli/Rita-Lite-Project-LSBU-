@@ -16,7 +16,7 @@ function IntroScreen({ navigation }) {
         <View style={[styles.paginationDot, styles.activePaginationDot]} />
       </View>
 
-      <View style={styles.bottomContainer}>
+      <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate('ProfileCreationScreen')}>
           <LinearGradient
             colors={['#38B5FE', '#9641FF']}
@@ -76,38 +76,40 @@ const styles = StyleSheet.create({
   activePaginationDot: {
     backgroundColor: '#FFFFFF',
   },
-  bottomContainer: {
-    width: '120%',
-    backgroundColor: 'white',
-    paddingHorizontal: 50,
-    paddingVertical: 50,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+  footer: {
     position: 'absolute',
     bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 15,
+    backgroundColor: 'white',
     flexDirection: 'row',
-    justifyContent: 'space-between', 
     alignItems: 'center',
+    paddingHorizontal: 100,
+    paddingVertical: 40,
+    justifyContent:'center',
+    
   },
   createAccountButton: {
     borderRadius: 12,
     paddingVertical: 12,
-    paddingHorizontal: 20,
-    width: '172',
-    height: '44',
-    justifyContent: 'center',
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    borderRadius: 8,
     alignItems: 'center',
+
   },
   signInButton: {
     borderRadius: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    width: '172',
-    height: '44',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     borderWidth: 2,
     borderColor: '#1E1E1E',
-    justifyContent: 'center',
-    alignItems: 'center'
+    marginLeft: 60,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    borderRadius: 8,
+    alignItems: 'center',
   },
   buttonText: {
     color: 'white',
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
     color: '#0F4D80',
     fontSize: 16,
     fontWeight: 'bold',
+    paddingHorizontal: 30,
   },
 });
 

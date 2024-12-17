@@ -1,3 +1,4 @@
+// ReminderScreen.js
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { Calendar } from 'react-native-calendars';
@@ -6,17 +7,24 @@ import TabButtons from '../(tabs)/TabButtons';
 
 // Dummy medication data
 const dummyUpcomingMeds = [
-  { id: '1', name: 'Aspirin', time: 'Morning | 8:00 AM | 2024-12-05' },
-  { id: '2', name: 'Metformin', time: 'Afternoon | 2:00 PM | 2024-12-05' },
-  { id: '3', name: 'Lisinopril', time: 'Evening | 8:00 PM | 2024-12-06' },
+  { id: '1', name: 'Aspirin', time: 'Morning | 8:00 AM | 2024-12-13' },
+  { id: '2', name: 'Metformin', time: 'Afternoon | 2:00 PM | 2024-12-13' },
+  { id: '3', name: 'Lisinopril', time: 'Evening | 8:00 PM | 2024-12-14' },
+  { id: '4', name: 'Aspirin', time: 'Morning | 8:00 AM | 2024-12-20' },
+  { id: '5', name: 'Metformin', time: 'Afternoon | 2:00 PM | 2024-12-20' },
+  { id: '6', name: 'Lisinopril', time: 'Evening | 8:00 PM | 2024-12-15' },
 ];
 
 const dummyMissedDoses = [
-  { id: '4', name: 'Vitamin D', time: 'Morning | 8:00 AM | 2024-12-04' },
-  { id: '5', name: 'Insulin', time: 'Night | 10:00 PM | 2024-12-03' },
+  { id: '7', name: 'Vitamin D', time: 'Morning | 8:00 AM | 2024-12-04' },
+  { id: '8', name: 'Insulin', time: 'Night | 10:00 PM | 2024-11-18' },
+  { id: '9', name: 'Metformin', time: 'Afternoon | 2:00 PM | 2024-11-20' },
+  { id: '10', name: 'Lisinopril', time: 'Evening | 8:00 PM | 2024-11-20' },
+  { id: '11', name: 'Metformin', time: 'Afternoon | 2:00 PM | 2024-11-20' },
+  { id: '12', name: 'Lisinopril', time: 'Evening | 8:00 PM | 2024-11-21' },
 ];
 
-const ReminderScreen = ({ route }) => {
+const ReminderScreen = ({ route, navigation }) => {
   const {
     upcomingMeds = dummyUpcomingMeds, // Use dummyUpcomingMeds if no data is passed
     missedDoses = dummyMissedDoses,   // Use dummyMissedDoses if no data is passed
@@ -25,11 +33,15 @@ const ReminderScreen = ({ route }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
 
-  // Group medications by date
+  const formatDateForDisplay = (dateString) => {
+    const [year, month, day] = dateString.split('-');
+    return `${day}-${month}-${year}`;
+  };
+
   const groupMedsByDate = (medications) => {
     const grouped = {};
     medications.forEach((med) => {
-      const date = med.time.split('|')[2].trim(); // Extract the date
+      const date = med.time.split('|')[2].trim(); // Extract the original date (YYYY-MM-DD)
       if (!grouped[date]) grouped[date] = [];
       grouped[date].push(med);
     });
@@ -63,16 +75,26 @@ const ReminderScreen = ({ route }) => {
 
         {bottomSheetVisible && selectedDate && (
           <View style={styles.bottomSheet}>
-            <Text style={styles.sectionTitle}>Medications on {selectedDate}</Text>
+            <Text style={styles.sectionTitle}>
+              Medications on {selectedDate ? formatDateForDisplay(selectedDate) : ''}
+            </Text>
             <FlatList
               data={medsByDate[selectedDate] || []}
               keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <View style={styles.medicationItem}>
-                  <Text style={styles.medicationName}>{item.name}</Text>
-                  <Text style={styles.medicationTime}>{item.time}</Text>
-                </View>
-              )}
+              renderItem={({ item }) => {
+                const isMissed = missedDoses.some((missed) => missed.id === item.id);
+                return (
+                  <View
+                    style={[
+                      styles.medicationItem,
+                      isMissed && { backgroundColor: '#f8d7da' }, // Apply red background for missed meds
+                    ]}
+                  >
+                    <Text style={styles.medicationName}>{item.name}</Text>
+                    <Text style={styles.medicationTime}>{item.time}</Text>
+                  </View>
+                );
+              }}
             />
             <TouchableOpacity
               style={styles.closeButton}
@@ -117,7 +139,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     padding: 20,
     maxHeight: '50%',
-    marginBottom: 50,
+    marginBottom: 70,
   },
   sectionTitle: {
     fontSize: 18,

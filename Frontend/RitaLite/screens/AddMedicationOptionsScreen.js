@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { launchCamera } from 'react-native-image-picker';
 import { Ionicons } from '@expo/vector-icons';
 import Header from '../(tabs)/header';
 import TabButtons from '../(tabs)/TabButtons';
@@ -7,19 +8,36 @@ import TabButtons from '../(tabs)/TabButtons';
 const AddMedicationOptionsScreen = ({ navigation }) => {
   const [manualSetupSelected, setManualSetupSelected] = useState(false); // Track if Manual Set Up is selected
 
+  const openCamera = () => {
+    const options = {
+      mediaType: 'photo',
+      saveToPhotos: true,
+      cameraType: 'back',
+    };
+
+    launchCamera(options, (response) => {
+      console.log('Camera Response:', response);
+      if (response.didCancel) {
+        Alert.alert('Cancelled', 'Camera usage was cancelled.');
+      } else if (response.errorCode) {
+        Alert.alert('Error', `Camera error: ${response.errorMessage}`);
+      } else {
+        console.log('Photo URI:', response.assets[0].uri);
+        Alert.alert('Success', `Photo captured: ${response.assets[0].uri}`);
+      }
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <Header title="Add Medication" />
+      <Header navigation={navigation} title="Add Medication" />
       <Text style={styles.title}>Add Medication</Text>
       <Text style={styles.subtitle}>
         You can either manually add medication or just scan the QR code based on your data.
       </Text>
 
       {/* Scan QR Code Button */}
-      <TouchableOpacity
-        style={styles.option}
-        onPress={() => navigation.navigate('ScanQRCodeScreen')} // Navigate to the QR scanner screen
-      >
+      <TouchableOpacity style={styles.option} onPress={openCamera}>
         <Ionicons name="qr-code-outline" size={24} color="#000" />
         <View style={styles.optionTextContainer}>
           <Text style={styles.optionTitle}>Scan QR Code</Text>
@@ -40,9 +58,9 @@ const AddMedicationOptionsScreen = ({ navigation }) => {
         <Ionicons name="settings-outline" size={24} color="#000" />
         <View style={styles.optionTextContainer}>
           <Text style={styles.optionTitle}>Manual Set Up</Text>
-          <Text style={styles.optionSubtitle}>
-            Input your medication manually into our database, and we’ll handle the rest.
-          </Text>
+          <Text style={styles.optionSubtitle}> Input your medication manually into our database, </Text>
+          <Text style={styles.optionSubtitle}> and we’ll handle the rest. </Text>
+
         </View>
       </TouchableOpacity>
 
