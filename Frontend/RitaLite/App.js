@@ -20,6 +20,7 @@ import NewMedicationScreen from './screens/NewMedicationScreen';
 import AssistantScreen from './screens/AssistantScreen';
 import ProfileSettingsScreen from './screens/ProfileSettingsScreen';
 import ScanQRCodeScreen from './screens/ScanQRCodeScreen';
+import AddCaregiverScreen from './screens/AddCaregiverScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -76,6 +77,7 @@ export default function App() {
         <Stack.Screen name="ScanQRCodeScreen" component={ScanQRCodeScreen} />
         <Stack.Screen name="AssistantScreen" component={AssistantScreen} />
         <Stack.Screen name="ProfileSettingsScreen" component={ProfileSettingsScreen} />
+        <Stack.Screen name="AddCaregiverScreen" component={AddCaregiverScreen} />
         <Stack.Screen name="LoginScreen" component={LoginScreenWrapper} />
       </Stack.Navigator>
     </NavigationContainer>
