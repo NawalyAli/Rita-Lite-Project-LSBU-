@@ -15,7 +15,7 @@ Things you need to download:
 
 Extra:
 
-- Expo Client on your phone
+- Expo Client on your phone or iOS Simulator/Android Studio
 
 
 
